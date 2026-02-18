@@ -35,5 +35,5 @@ Developers building AI-augmented tools, and eventually anyone who wants to own t
 | Reference implementation: package | Done | packages/package/ |
 | Reference implementation: verify | Done | packages/verify/ |
 | Reference implementation: migrate | Done | packages/migrate/ |
-| Mars HQ integration (.marsbot -> .opkg) | Not Started | mars-hq bridge |
+| Mars HQ integration (.marsbot -> .opkg) | Done | mars-hq bridge (adapter, export/import pipelines, CLI, 44 tests, DID display, workspace export) |
 | Federation / cross-system transmission | Not Started | — |

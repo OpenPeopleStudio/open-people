@@ -2,7 +2,7 @@
 
 ## Current Sprint
 
-M2 is complete. Next up: M3 (Mars HQ Bridge).
+M3 (Mars HQ Bridge) is complete. All items done — 44 passing tests.
 
 ---
 
@@ -32,10 +32,15 @@ TypeScript packages that can create, parse, sign, and verify open_people data.
 ## M3: Mars HQ Bridge
 Connect the standard to its first implementation.
 
-- [ ] Mars HQ agent export produces .opkg instead of .marsbot
-- [ ] Mars HQ agent import accepts both .marsbot and .opkg
-- [ ] Mars HQ identity page generates and displays DID
-- [ ] Mars HQ workspace export as .opkg bundle
+- [x] Adapter layer: `hqToMarsbotExport` + `marsbotExportToHq` (opkg-adapter.ts)
+- [x] Identity key manager: `getOrCreateOwnerKeypair` + `getOwnerDID` (identity-keys.ts)
+- [x] Export pipeline: `exportAgentAsOpkg` produces signed .opkg packages
+- [x] Import pipeline: `importAgentFromOpkg` with verify + merge options
+- [x] CLI commands: `mars agent export-opkg` + `mars agent import-opkg`
+- [x] Unit tests (adapter) + integration tests (pipeline) — 34 passing
+- [x] Public API exports in @mars-hq/agents index
+- [x] Mars HQ identity page generates and displays DID (web + desktop settings)
+- [x] Mars HQ workspace export as .opkg bundle (exportWorkspaceAsOpkg, CLI, 10 tests)
 
 ## M4: Federation & Transmission
 Cross-system and cross-distance package handling.

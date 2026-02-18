@@ -13,6 +13,11 @@
 - [x] Example .opkg files (minimal identity, agent export, workspace bundle)
 - [x] Update mars-hq references (VISION.md, TODO.md, MANIFESTO.md)
 - [x] Stub package skeleton (packages/identity, package, verify, migrate)
+- [x] Context content type spec (04-project-context.md)
+- [x] Context JSON Schema in schema-catalog.md
+- [x] Context example .opkg file
+- [x] Context export script (packages/context/)
+- [x] Update all enums (spec, schema, TypeScript) to include `context`
 
 ---
 
@@ -20,12 +25,15 @@
 The spec is the product. All three core documents plus reference material.
 
 - [x] Identity spec — Ed25519, did:key:, DID Document
-- [x] Data package spec — .opkg format, 6 content types, signing, verification
+- [x] Data package spec — .opkg format, 7 content types, signing, verification
 - [x] Agent portability spec — agent content type, extensions, memory linking
 - [x] Spec README — reading order, glossary, design principles
 - [x] .marsbot -> .opkg migration guide
 - [x] JSON Schema catalog for all content types
 - [x] Example .opkg files that conform to the spec
+- [x] Context content type spec (7th content type)
+- [x] Context JSON Schema + example .opkg
+- [x] Context export script package
 
 ## M2: Reference Implementation
 TypeScript packages that can create, parse, sign, and verify open_people data.

@@ -136,3 +136,40 @@
 - More coordination overhead when making changes
 
 **Verdict:** Independent project. The standard lives at `/Users/mars/open-people/`. Mars HQ references it. The standard doesn't reference Mars HQ except in the migration guide (which is specifically about Mars HQ's legacy format). Type drift is mitigated by the `packages/migrate/` bridge package.
+
+---
+
+## Project context: new content type vs memory/workspace extension
+**Status: RESOLVED → new content type (see docs/spec/04-project-context.md)**
+
+**For using memory content type:**
+- Fewer content types to maintain
+- Memory already stores "things learned" — project decisions are things learned
+- Simpler spec surface area
+
+**Against using memory content type:**
+- Memory is key-value + reflections — project context has structured debates, milestones, relationships
+- Schema mismatch — forcing debates into reflections loses the for/against structure
+- Memory is about an entity's knowledge; context is about a project's planning state
+
+**For using workspace content type:**
+- Workspace already stores "configuration" — conventions are configuration
+- Could extend surfaces to include planning surfaces
+
+**Against using workspace content type:**
+- Workspace is UI layout/preferences, not decision history
+- Vision and debates are fundamentally different from surface positions
+- Schema would become incoherent mixing UI and planning concerns
+
+**For new `context` content type:**
+- Clean schema — debates, decisions, milestones each get proper structure
+- Distinct purpose — project metadata vs learned knowledge vs UI layout
+- Cross-project relationships and debate-decision linking need dedicated fields
+- Follows the "minimal core, extensible surface" design principle
+
+**Against new `context` content type:**
+- One more type in the enum (7 instead of 6)
+- One more JSON Schema to maintain
+- Slightly more spec surface area
+
+**Verdict:** New content type. Context has fundamentally different structure from memory (key-value/reflections) and workspace (surfaces/preferences). Debates with for/against arrays, milestones with task checklists, and cross-project relationships don't fit into either existing type without contortion. The additional spec surface area is justified by the structural clarity.

@@ -52,7 +52,7 @@ The outer `.opkg` envelope, shared by all content types.
     },
     "content_type": {
       "type": "string",
-      "enum": ["identity", "agent", "memory", "workspace", "credential", "bundle"]
+      "enum": ["identity", "agent", "memory", "workspace", "credential", "context", "bundle"]
     },
     "content": {
       "type": "object",
@@ -388,6 +388,203 @@ Content for `content_type: "credential"`.
 
 ---
 
+## Context Content Schema
+
+Content for `content_type: "context"`. See [04-project-context.md](../spec/04-project-context.md).
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpeopleStudio.com/schemas/content-context.json",
+  "title": "Context Content",
+  "type": "object",
+  "required": ["owner_did", "project_id", "project_name", "exported_at", "vision"],
+  "properties": {
+    "owner_did": {
+      "type": "string",
+      "pattern": "^did:key:z[1-9A-HJ-NP-Za-km-z]+$"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$",
+      "description": "org/project-name format"
+    },
+    "project_name": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "exported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "vision": {
+      "type": "object",
+      "required": ["summary", "done_criteria", "status"],
+      "properties": {
+        "summary": { "type": "string" },
+        "audience": { "type": "string" },
+        "done_criteria": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "out_of_scope": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["goal", "status"],
+            "properties": {
+              "goal": { "type": "string" },
+              "status": {
+                "type": "string",
+                "enum": ["done", "in_progress", "not_started", "out_of_scope"]
+              },
+              "delivered_by": { "type": "string" }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "debates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "question", "status", "options", "created_at"],
+        "properties": {
+          "id": { "type": "string" },
+          "question": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["open", "leaning", "resolved"]
+          },
+          "options": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["label", "for", "against"],
+              "properties": {
+                "label": { "type": "string" },
+                "for": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "against": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          },
+          "verdict": { "type": ["string", "null"] },
+          "resolved_decision_id": { "type": ["string", "null"] },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "context", "decision", "reasoning", "decided_at"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "context": { "type": "string" },
+          "decision": { "type": "string" },
+          "reasoning": { "type": "string" },
+          "resolved_debate_id": { "type": ["string", "null"] },
+          "decided_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "properties": {
+        "stack": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "key_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "description"],
+            "properties": {
+              "path": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "ownership": {
+          "type": "object",
+          "required": ["owner"],
+          "properties": {
+            "owner": { "type": "string" },
+            "org": { "type": "string" }
+          }
+        }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "tasks"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["description", "done"],
+              "properties": {
+                "description": { "type": "string" },
+                "done": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["project_id", "relationship"],
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$"
+          },
+          "relationship": {
+            "type": "string",
+            "enum": ["implements", "depends_on", "extends", "forks", "related"]
+          },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced extension data"
+    }
+  }
+}
+```
+
+---
+
 ## Bundle Content Schema
 
 Content for `content_type: "bundle"`.
@@ -417,7 +614,7 @@ Content for `content_type: "bundle"`.
           "package_id": { "type": "string", "format": "uuid" },
           "content_type": {
             "type": "string",
-            "enum": ["identity", "agent", "memory", "workspace", "credential"]
+            "enum": ["identity", "agent", "memory", "workspace", "credential", "context"]
           },
           "content_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
           "required": { "type": "boolean" }
@@ -436,4 +633,5 @@ See the [examples/](../../examples/) directory for complete `.opkg` files that c
 
 - `minimal-identity.opkg` — Simplest valid identity package
 - `agent-export.opkg` — Full agent with mars-hq extensions and memory reference
+- `project-context.opkg` — Project context snapshot with vision, debates, decisions, and milestones
 - `workspace-bundle.opkg` — Bundle containing agent + memory + workspace

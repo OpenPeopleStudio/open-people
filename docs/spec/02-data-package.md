@@ -2,7 +2,7 @@
 
 ## Summary
 
-The `.opkg` (Open People Package) is the atomic unit of open_people data. It is a signed, content-addressed JSON container that holds identity, agent, memory, workspace, credential, or bundle data.
+The `.opkg` (Open People Package) is the atomic unit of open_people data. It is a signed, content-addressed JSON container that holds identity, agent, memory, workspace, credential, context, or bundle data.
 
 Every package is:
 - **Self-describing**: The envelope says what's inside, who made it, and how to verify it.
@@ -21,7 +21,7 @@ Every package is:
     "signature": "<hex-encoded Ed25519 signature of content_hash>"
   },
   "content_hash": "<hex-encoded SHA-256 of canonical JSON of content>",
-  "content_type": "identity | agent | memory | workspace | credential | bundle",
+  "content_type": "identity | agent | memory | workspace | credential | context | bundle",
   "content": { },
   "metadata": {
     "schema_version": "1.0.0",
@@ -44,7 +44,7 @@ Every package is:
 | `author.did` | string | Yes | `did:key:` identifier of the author. |
 | `author.signature` | string | Yes | Hex-encoded Ed25519 signature of the `content_hash` string, signed with the author's private key. |
 | `content_hash` | string | Yes | Hex-encoded SHA-256 hash of the canonical JSON serialization of `content`. |
-| `content_type` | string | Yes | One of: `identity`, `agent`, `memory`, `workspace`, `credential`, `bundle`. |
+| `content_type` | string | Yes | One of: `identity`, `agent`, `memory`, `workspace`, `credential`, `context`, `bundle`. |
 | `content` | object | Yes | The payload. Schema determined by `content_type`. |
 | `metadata` | object | Yes | Package metadata. |
 | `metadata.schema_version` | string | Yes | Semver version of the content type schema. |
@@ -60,6 +60,7 @@ Every package is:
 | `memory` | Key-value store and/or reflections | See Memory below |
 | `workspace` | Configuration, layouts, preferences | See Workspace below |
 | `credential` | Verifiable claims about the identity | See Credential below |
+| `context` | Project planning, decisions, and conventions | See [04-project-context.md](04-project-context.md) |
 | `bundle` | References to other packages | See Bundle below |
 
 ## Canonical JSON

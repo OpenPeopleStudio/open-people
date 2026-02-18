@@ -7,7 +7,7 @@
  * Not yet implemented. See docs/spec/02-data-package.md for the spec.
  */
 
-export type ContentType = 'identity' | 'agent' | 'memory' | 'workspace' | 'credential' | 'bundle';
+export type ContentType = 'identity' | 'agent' | 'memory' | 'workspace' | 'credential' | 'context' | 'bundle';
 export type TransmissionClass = 'local' | 'network' | 'interplanetary';
 export type Compression = 'none' | 'gzip' | 'zstd';
 

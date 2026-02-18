@@ -29,6 +29,8 @@ Developers building AI-augmented tools, and eventually anyone who wants to own t
 | .marsbot migration guide | Done | docs/reference/marsbot-mapping.md |
 | Schema catalog (all JSON Schemas) | Done | docs/reference/schema-catalog.md |
 | Example .opkg files | Done | examples/ |
+| Context content type spec | Done | docs/spec/04-project-context.md |
+| Context export script | Done | packages/context/ |
 | Reference implementation: identity | Not Started | packages/identity/ |
 | Reference implementation: package | Not Started | packages/package/ |
 | Reference implementation: verify | Not Started | packages/verify/ |

@@ -5,6 +5,7 @@
 1. **[01-identity.md](01-identity.md)** — How identity works. Ed25519 keypairs, `did:key:` DIDs, DID Documents. Start here.
 2. **[02-data-package.md](02-data-package.md)** — The `.opkg` format. How data is packaged, signed, and verified.
 3. **[03-agent-portable.md](03-agent-portable.md)** — How AI agents are made portable. The `agent` content type and extension system.
+4. **[04-project-context.md](04-project-context.md)** — How project planning state is captured. The `context` content type for vision, debates, decisions, and conventions.
 
 ## Design Principles
 
@@ -24,8 +25,9 @@
 | **Ed25519** | An elliptic curve digital signature algorithm. Fast, compact (32-byte keys), widely supported. Used for all signing in open_people. |
 | **.opkg** | Open People Package. The atomic unit of open_people data. A signed, content-addressed JSON container. |
 | **content_hash** | SHA-256 hash of the canonical JSON serialization of a package's `content` field. Used for integrity verification and content addressing. |
-| **content_type** | One of six types: `identity`, `agent`, `memory`, `workspace`, `credential`, `bundle`. Determines the schema of the `content` field. |
+| **content_type** | One of seven types: `identity`, `agent`, `memory`, `workspace`, `credential`, `context`, `bundle`. Determines the schema of the `content` field. |
 | **canonical JSON** | Deterministic JSON serialization: keys sorted lexicographically, no whitespace, UTF-8 NFC normalization. Ensures the same content always produces the same hash. |
+| **context** | A package capturing a project's planning state: vision, debates, decisions, conventions, milestones, and cross-project relationships. |
 | **bundle** | A package whose content is a list of references to other packages. Used to group related packages (e.g., agent + memory + workspace). |
 | **transmission_class** | How far a package is expected to travel: `local` (same device), `network` (across the internet), `interplanetary` (across space, tolerant of latency and loss). |
 | **multibase** | A self-describing base encoding format. Used in `did:key:` to encode the public key. The `z` prefix indicates base58btc encoding. |

@@ -1,0 +1,245 @@
+{
+  "open_people": 1,
+  "package_id": "019505a0-0003-7000-8000-000000000001",
+  "created_at": "2026-02-18T14:00:00Z",
+  "author": {
+    "did": "did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK",
+    "signature": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
+  },
+  "content_hash": "c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0",
+  "content_type": "context",
+  "content": {
+    "owner_did": "did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK",
+    "project_id": "openPeopleStudio/mars-hq",
+    "project_name": "Mars HQ",
+    "exported_at": "2026-02-18T14:00:00Z",
+    "vision": {
+      "summary": "Personal operating environment for identity, agents, and memory — the first implementation of the open_people standard.",
+      "audience": "Mars (primary user) and future open_people adopters",
+      "done_criteria": [
+        "Users can sign up and manage their identity",
+        "Agent loop executes tasks with tool access",
+        "Desktop app ships with full surface system",
+        "Vault encrypts and decrypts user data end-to-end",
+        "Context packages can be exported from any project"
+      ],
+      "out_of_scope": [
+        "Social network features",
+        "Marketplace for agents or data",
+        "Blockchain or distributed ledger"
+      ],
+      "status": [
+        { "goal": "Auth + identity", "status": "done", "delivered_by": "apps/web/, packages/auth/" },
+        { "goal": "Agent runtime loop", "status": "done", "delivered_by": "packages/runtime/" },
+        { "goal": "Surface system", "status": "in_progress", "delivered_by": "packages/surfaces/" },
+        { "goal": "Vault encryption", "status": "in_progress", "delivered_by": "packages/vault/" },
+        { "goal": "Desktop app", "status": "not_started", "delivered_by": "apps/desktop/" },
+        { "goal": "Context export", "status": "in_progress", "delivered_by": "open-people-local/packages/context/" },
+        { "goal": "Federation", "status": "not_started" }
+      ]
+    },
+    "debates": [
+      {
+        "id": "debate-vault-dek-location",
+        "question": "Should the vault DEK live in ToolContext or a SessionKeyHolder?",
+        "status": "open",
+        "options": [
+          {
+            "label": "SessionKeyHolder in worker",
+            "for": [
+              "Natural fit — worker already holds session state",
+              "DEK never leaves the worker boundary",
+              "Simpler lifecycle management"
+            ],
+            "against": [
+              "No direct ToolContext access to the DEK",
+              "Requires message passing for encrypt/decrypt calls"
+            ]
+          },
+          {
+            "label": "Extend ToolContext with DEK",
+            "for": [
+              "Clean interface — tools access DEK through their existing context",
+              "No singletons or global state",
+              "Type-safe access"
+            ],
+            "against": [
+              "DEK travels through the call stack",
+              "ToolContext becomes a grab-bag of concerns"
+            ]
+          }
+        ],
+        "verdict": null,
+        "resolved_decision_id": null,
+        "created_at": "2026-02-10T00:00:00Z"
+      },
+      {
+        "id": "debate-surface-rendering",
+        "question": "Should surfaces render via iframes or direct DOM injection?",
+        "status": "leaning",
+        "options": [
+          {
+            "label": "Iframes",
+            "for": [
+              "Strong isolation — surfaces can't interfere with each other",
+              "Natural security boundary",
+              "Each surface can use different frameworks"
+            ],
+            "against": [
+              "Communication overhead via postMessage",
+              "Styling consistency is harder",
+              "Performance cost of multiple browsing contexts"
+            ]
+          },
+          {
+            "label": "Direct DOM injection",
+            "for": [
+              "Simpler communication — shared runtime",
+              "Better performance — single browsing context",
+              "Easier to share state and styles"
+            ],
+            "against": [
+              "No isolation — one surface can break another",
+              "Security implications of shared DOM",
+              "Framework conflicts possible"
+            ]
+          }
+        ],
+        "verdict": "Leaning iframes for isolation. The communication overhead is acceptable for the security and stability benefits.",
+        "resolved_decision_id": null,
+        "created_at": "2026-02-12T00:00:00Z"
+      },
+      {
+        "id": "debate-connections-data-model",
+        "question": "Should connections extend the contacts table or use a separate relationships table?",
+        "status": "resolved",
+        "options": [
+          {
+            "label": "Extend contacts table",
+            "for": [
+              "Simpler queries — one table for everything",
+              "Less schema complexity"
+            ],
+            "against": [
+              "Conflates identity (who) with relationship (how we relate)",
+              "Gets messy with multiple relationship types per contact"
+            ]
+          },
+          {
+            "label": "Separate relationships table",
+            "for": [
+              "Clean separation: contacts = who, relationships = how",
+              "Supports multiple relationship types per contact",
+              "Easier to query by relationship type"
+            ],
+            "against": [
+              "Requires joins for common queries",
+              "More tables to maintain"
+            ]
+          }
+        ],
+        "verdict": "Separate table. The conceptual clarity is worth the join cost. Contacts are entities; relationships are edges.",
+        "resolved_decision_id": "decision-connections-data-model",
+        "created_at": "2026-02-08T00:00:00Z"
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-connections-data-model",
+        "title": "Connections data model",
+        "context": "Extend contacts table or separate relationships table?",
+        "decision": "Separate relationships table with FK to contacts",
+        "reasoning": "Clean separation: contacts = who, relationships = how we relate. Supports multiple relationship types per contact without schema contortion.",
+        "resolved_debate_id": "debate-connections-data-model",
+        "decided_at": "2026-02-15T00:00:00Z"
+      },
+      {
+        "id": "decision-monorepo-structure",
+        "title": "Monorepo with npm workspaces",
+        "context": "How to organize 20+ packages with shared types and build tooling?",
+        "decision": "npm workspaces monorepo with packages/ and apps/ directories",
+        "reasoning": "Native npm support, no extra tooling (no Turborepo/Nx needed at this scale). packages/ for libraries, apps/ for deployable applications.",
+        "resolved_debate_id": null,
+        "decided_at": "2026-01-20T00:00:00Z"
+      }
+    ],
+    "conventions": {
+      "stack": {
+        "language": "TypeScript",
+        "runtime": "Node.js + Bun",
+        "build": "Vite",
+        "backend": "Supabase",
+        "desktop": "Tauri",
+        "testing": "Vitest"
+      },
+      "key_paths": [
+        { "path": "packages/runtime/", "description": "Agent execution engine and tool system" },
+        { "path": "packages/vault/", "description": "AES-256-GCM encryption for user data" },
+        { "path": "packages/surfaces/", "description": "UI surface rendering system" },
+        { "path": "packages/auth/", "description": "Authentication and session management" },
+        { "path": "apps/web/", "description": "Main web application" },
+        { "path": "apps/desktop/", "description": "Tauri desktop application" }
+      ],
+      "rules": [
+        "All agent tools live in packages/runtime/src/tools/",
+        "All types must have both TypeScript interfaces and JSON Schema definitions",
+        "Use Tailwind CSS — no inline styles",
+        "All API calls go through lib/api.ts",
+        "Spec before code — the spec IS the product"
+      ],
+      "ownership": {
+        "owner": "Mars",
+        "org": "OpenPeopleStudio"
+      }
+    },
+    "milestones": [
+      {
+        "id": "M1",
+        "name": "Skeleton + Docs",
+        "tasks": [
+          { "description": "Init Vite project", "done": true },
+          { "description": "Set up monorepo with npm workspaces", "done": true },
+          { "description": "Write VISION.md, TODO.md, DEBATES.md", "done": true },
+          { "description": "Stub all package skeletons", "done": true }
+        ]
+      },
+      {
+        "id": "M2",
+        "name": "Auth + Agent Loop",
+        "tasks": [
+          { "description": "Supabase auth integration", "done": true },
+          { "description": "Agent runtime with tool execution", "done": true },
+          { "description": "Basic agent CRUD", "done": true },
+          { "description": "Integration tests for agent loop", "done": false }
+        ]
+      },
+      {
+        "id": "M3",
+        "name": "Vault + Surfaces",
+        "tasks": [
+          { "description": "AES-256-GCM vault encryption", "done": true },
+          { "description": "Surface rendering system", "done": false },
+          { "description": "Desktop app shell", "done": false }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "project_id": "openPeopleStudio/open-people",
+        "relationship": "implements",
+        "description": "First implementation of the open_people data standard"
+      },
+      {
+        "project_id": "openPeopleStudio/personal-studio",
+        "relationship": "related",
+        "description": "Analytics and personal data visualization layer"
+      }
+    ],
+    "extensions": {}
+  },
+  "metadata": {
+    "schema_version": "1.0.0",
+    "transmission_class": "local",
+    "compression": "none"
+  }
+}

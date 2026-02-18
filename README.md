@@ -16,6 +16,7 @@ Start here:
 2. [Identity](docs/spec/01-identity.md) — Ed25519 keypairs, `did:key:` DIDs
 3. [Data Package (.opkg)](docs/spec/02-data-package.md) — Signed, content-addressed containers
 4. [Agent Portability](docs/spec/03-agent-portable.md) — Portable AI agent format
+5. [Project Context](docs/spec/04-project-context.md) — Vision, debates, decisions, conventions as portable packages
 
 ## Reference
 
@@ -24,7 +25,7 @@ Start here:
 
 ## Current Status
 
-Spec phase. The three core spec documents (identity, data package, agent portability) are written. Reference implementation packages are stubbed but not yet built.
+Spec phase. Four spec documents (identity, data package, agent portability, project context) are written. Context export script is built. Reference implementation packages are stubbed but not yet built.
 
 See [TODO.md](TODO.md) for the full roadmap.
 
@@ -38,15 +39,17 @@ open-people/
 │   │   ├── README.md          # Reading order + glossary
 │   │   ├── 01-identity.md     # DID + keypairs
 │   │   ├── 02-data-package.md # .opkg format
-│   │   └── 03-agent-portable.md # Agent portability
+│   │   ├── 03-agent-portable.md # Agent portability
+│   │   └── 04-project-context.md # Project context
 │   └── reference/             # Implementation guides
 │       ├── marsbot-mapping.md # Migration from .marsbot
 │       └── schema-catalog.md  # All JSON Schemas
-├── packages/                  # Future reference implementation
+├── packages/                  # Reference implementation + tools
 │   ├── identity/              # DID generation, keypair management
 │   ├── package/               # .opkg builder, parser, validator
 │   ├── verify/                # Signing, hash verification
-│   └── migrate/               # .marsbot -> .opkg converter
+│   ├── migrate/               # .marsbot -> .opkg converter
+│   └── context/               # Project docs -> .opkg context exporter
 ├── examples/                  # Working .opkg examples
 └── decisions/                 # Architecture Decision Records
 ```

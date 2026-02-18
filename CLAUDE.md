@@ -11,10 +11,11 @@ The open_people data standard defines how a human packages their identity, agent
 - **Package format**: `.opkg` — signed, content-addressed JSON containers
 
 ## Key Paths
-- `docs/spec/` — The spec (identity, data package, agent portability)
+- `docs/spec/` — The spec (identity, data package, agent portability, project context)
 - `docs/reference/` — Migration guides, schema catalog
 - `docs/MANIFESTO.md` — The canonical manifesto
-- `packages/` — Future reference implementation (identity, package, verify, migrate)
+- `packages/` — Reference implementation + tools (identity, package, verify, migrate, context)
+- `packages/context/` — Export script: reads project docs, produces .opkg context JSON
 - `examples/` — Example `.opkg` files
 - `decisions/` — Architecture Decision Records
 
@@ -24,7 +25,7 @@ The open_people data standard defines how a human packages their identity, agent
 - Ed25519 for all signing. No blockchain, no registration, no central authority.
 - Content-addressed: every package is identified by the hash of its content.
 - Self-verifying: every package includes its author's DID and Ed25519 signature.
-- Six content types: identity, agent, memory, workspace, credential, bundle.
+- Seven content types: identity, agent, memory, workspace, credential, context, bundle.
 
 ## Relationship to Mars HQ
 - Mars HQ lives at `/Users/mars/mars-hq/`
@@ -33,7 +34,7 @@ The open_people data standard defines how a human packages their identity, agent
 - This project is independent but referenced from mars-hq's VISION.md and TODO.md
 
 ## Current State
-Phase 0: Bootstrap. Spec documents written. Reference implementation not yet started.
+M1 complete. All spec documents written including context content type. Context export script built. Reference implementation (M2) not yet started.
 
 ---
 

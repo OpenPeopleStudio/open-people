@@ -51,7 +51,7 @@
 ---
 
 ## How much of mars-hq's agent model becomes standard vs stays mars-hq-specific
-**Status: LEANING standard core + namespaced extensions**
+**Status: RESOLVED → standard core + namespaced extensions (see decisions/003-standard-core-plus-extensions.md)**
 
 **For standardizing most of the agent model:**
 - More portable — agents move between systems with full fidelity
@@ -74,12 +74,12 @@
 - Risk of fragmentation — every system defines its own extensions
 - Mars-hq-specific personality data might get lost when importing into other systems
 
-**Verdict (leaning):** Standard core profile (name, capabilities, memory_format, origin) + namespaced extensions (`mars-hq:personality`, `mars-hq:guardrails`). Other systems define their own extensions. The core is portable; the rest is best-effort.
+**Verdict:** Standard core profile (name, capabilities, memory_format, origin) + namespaced extensions (`mars-hq:personality`, `mars-hq:guardrails`). Other systems define their own extensions. The core is portable; the rest is best-effort. Validated by M2 implementation — `@open-people/migrate` round-trips all fields through this pattern.
 
 ---
 
 ## Memory embedded in agent package vs shipped separately
-**Status: LEANING separate packages, linked via bundle**
+**Status: RESOLVED → separate packages, linked via bundle (see decisions/004-separate-memory-packages.md)**
 
 **For embedded memory:**
 - One file = one agent, complete and self-contained
@@ -104,7 +104,7 @@
 - Broken references possible if memory package is missing
 - Harder for simple use cases (just want to export/import one thing)
 
-**Verdict (leaning):** Separate packages. Memory is `content_type: "memory"`, agent is `content_type: "agent"`. Bundle them with `content_type: "bundle"` when you want the complete picture. The agent package has an optional `memory_refs` field that lists memory package IDs it expects.
+**Verdict:** Separate packages. Memory is `content_type: "memory"`, agent is `content_type: "agent"`. Bundle them with `content_type: "bundle"` when you want the complete picture. The agent package has an optional `memory_refs` field that lists memory package IDs it expects. Validated by M2 implementation — `marsbotToOpkg` produces separate agent + memory + bundle packages.
 
 ---
 

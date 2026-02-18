@@ -2,11 +2,15 @@
   "name": "@open-people/package",
   "version": "0.1.0",
   "description": ".opkg builder, parser, and validator for open_people data packages",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@noble/hashes": "^1.7.0"
   },
   "license": "MIT"
 }

@@ -4,10 +4,11 @@
 The open_people data standard defines how a human packages their identity, agents, memory, and preferences into a portable, verifiable bundle. It is a spec, not a product. Mars HQ is the first implementation.
 
 ## Stack
-- **Monorepo**: npm workspaces (future reference implementation)
-- **Language**: TypeScript
-- **Crypto**: Ed25519 keypairs, `did:key:` DIDs
-- **Validation**: Zod schemas + JSON Schema
+- **Monorepo**: npm workspaces, 5 packages
+- **Language**: TypeScript (ESM, Node16 module resolution)
+- **Crypto**: Noble ecosystem (`@noble/ed25519`, `@noble/hashes`, `@scure/base`) — pure TS, audited, isomorphic
+- **Testing**: vitest
+- **Build**: tsc with shared tsconfig.base.json
 - **Package format**: `.opkg` — signed, content-addressed JSON containers
 
 ## Key Paths
@@ -34,7 +35,7 @@ The open_people data standard defines how a human packages their identity, agent
 - This project is independent but referenced from mars-hq's VISION.md and TODO.md
 
 ## Current State
-M1 complete. All spec documents written including context content type. Context export script built. Reference implementation (M2) not yet started.
+M1 (Spec) and M2 (Reference Implementation) complete. All four packages implemented with 24 passing integration tests. Next milestone: M3 (Mars HQ Bridge).
 
 ---
 

@@ -2,11 +2,17 @@
   "name": "@open-people/verify",
   "version": "0.1.0",
   "description": "Ed25519 signing and verification for open_people packages",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@noble/ed25519": "^2.2.0",
+    "@open-people/identity": "0.1.0",
+    "@open-people/package": "0.1.0"
   },
   "license": "MIT"
 }

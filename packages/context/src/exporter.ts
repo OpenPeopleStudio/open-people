@@ -2,10 +2,10 @@
  * Context exporter — reads project docs and produces .opkg context content.
  */
 
-import { readFileSync, readdirSync, existsSync } from 'fs';
-import { join, basename } from 'path';
-import type { ContextContent, ExportOptions } from './index';
-import { parseVision, parseDebates, parseTodo, parseConventions, parseDecision } from './parser';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { join, basename } from 'node:path';
+import type { ContextContent, ExportOptions } from './index.js';
+import { parseVision, parseDebates, parseTodo, parseConventions, parseDecision } from './parser.js';
 
 /**
  * Export a project's documentation state as a ContextContent object.
@@ -54,11 +54,11 @@ export function exportContext(options: ExportOptions): ContextContent {
   const decisionsDir = join(projectDir, 'decisions');
   if (existsSync(decisionsDir)) {
     const decisionFiles = readdirSync(decisionsDir)
-      .filter(f => f.endsWith('.md'))
+      .filter((f: string) => f.endsWith('.md'))
       .sort();
 
     if (decisionFiles.length > 0) {
-      content.decisions = decisionFiles.map(filename => {
+      content.decisions = decisionFiles.map((filename: string) => {
         const md = readFileSync(join(decisionsDir, filename), 'utf-8');
         return parseDecision(md, filename);
       });

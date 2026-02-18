@@ -25,9 +25,14 @@ Start here:
 
 ## Current Status
 
-Spec phase. Four spec documents (identity, data package, agent portability, project context) are written. Context export script is built. Reference implementation packages are stubbed but not yet built.
+**M1 (Spec) and M2 (Reference Implementation) are complete.**
 
-See [TODO.md](TODO.md) for the full roadmap.
+- Four spec documents: identity, data package, agent portability, project context
+- Five TypeScript packages: `identity`, `package`, `verify`, `migrate`, `context`
+- 24 integration tests passing (identity round-trips, canonical JSON, sign/verify, tamper detection, migration)
+- Crypto stack: Noble ecosystem (pure TypeScript, audited, isomorphic)
+
+Next: M3 (Mars HQ Bridge). See [TODO.md](TODO.md) for the full roadmap.
 
 ## Architecture
 
@@ -54,11 +59,20 @@ open-people/
 └── decisions/                 # Architecture Decision Records
 ```
 
-## Setup (Future)
+## Setup
 
 ```bash
 npm install
 npm run build
+npm test        # runs tests across all packages
 ```
 
-Reference implementation packages are not yet built. See [TODO.md](TODO.md) M2 milestone.
+### Packages
+
+| Package | Description |
+|---|---|
+| `@open-people/identity` | Ed25519 keypair generation, `did:key:` DID encoding/decoding, DID Documents |
+| `@open-people/package` | .opkg envelope builder, canonical JSON, content hashing, validation |
+| `@open-people/verify` | Ed25519 signing and verification of .opkg packages |
+| `@open-people/migrate` | .marsbot v1 ↔ .opkg format conversion |
+| `@open-people/context` | Project docs (VISION, DEBATES, TODO) → .opkg context export |

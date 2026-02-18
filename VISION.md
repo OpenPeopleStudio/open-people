@@ -31,9 +31,9 @@ Developers building AI-augmented tools, and eventually anyone who wants to own t
 | Example .opkg files | Done | examples/ |
 | Context content type spec | Done | docs/spec/04-project-context.md |
 | Context export script | Done | packages/context/ |
-| Reference implementation: identity | Not Started | packages/identity/ |
-| Reference implementation: package | Not Started | packages/package/ |
-| Reference implementation: verify | Not Started | packages/verify/ |
-| Reference implementation: migrate | Not Started | packages/migrate/ |
+| Reference implementation: identity | Done | packages/identity/ |
+| Reference implementation: package | Done | packages/package/ |
+| Reference implementation: verify | Done | packages/verify/ |
+| Reference implementation: migrate | Done | packages/migrate/ |
 | Mars HQ integration (.marsbot -> .opkg) | Not Started | mars-hq bridge |
 | Federation / cross-system transmission | Not Started | — |

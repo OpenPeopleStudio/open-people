@@ -2,11 +2,15 @@
   "name": "@open-people/context",
   "version": "0.1.0",
   "description": "Export project planning state (vision, debates, decisions, conventions) as .opkg context packages",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^20"
   },
   "license": "MIT"
 }

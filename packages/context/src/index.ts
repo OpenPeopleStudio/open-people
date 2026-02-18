@@ -8,14 +8,14 @@
  * See docs/spec/04-project-context.md for the spec.
  */
 
-export { exportContext } from './exporter';
+export { exportContext } from './exporter.js';
 export {
   parseVision,
   parseDebates,
   parseTodo,
   parseConventions,
   parseDecision,
-} from './parser';
+} from './parser.js';
 
 // ---- Types ----
 

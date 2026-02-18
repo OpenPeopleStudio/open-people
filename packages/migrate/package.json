@@ -2,11 +2,17 @@
   "name": "@open-people/migrate",
   "version": "0.1.0",
   "description": ".marsbot to .opkg converter and back",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@open-people/identity": "0.1.0",
+    "@open-people/package": "0.1.0",
+    "@open-people/verify": "0.1.0"
   },
   "license": "MIT"
 }

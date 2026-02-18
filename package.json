@@ -7,9 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build -w packages/identity -w packages/package -w packages/context && npm run build -w packages/verify && npm run build -w packages/migrate",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
   },
   "author": "OpenPeopleStudio",
   "license": "MIT"

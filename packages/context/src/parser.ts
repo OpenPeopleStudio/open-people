@@ -13,7 +13,7 @@ import type {
   KeyPath,
   Milestone,
   MilestoneTask,
-} from './index';
+} from './index.js';
 
 /**
  * Parse VISION.md into a Vision object.
